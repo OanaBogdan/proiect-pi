@@ -12,11 +12,11 @@ unset($_SESSION['qty_array']);
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
-  <title>Vittorio :: Homepage</title>
+  <title>BookLover -- Homepage</title>
   <link rel="icon" type="image/png" href="images/favicon.png">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Vittorio Shop Project">
+  <meta name="description" content="BookLover Shop Project">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
@@ -34,9 +34,9 @@ unset($_SESSION['qty_array']);
       <!-- Header Main -->
       <div class="header_main">
         <div class="container">
-          <div class="row">
+          <div class="row justify-content-between">
             <!-- Logo -->
-            <div class="col-lg-2 col-sm-3 col-3 order-1">
+            <div class="col-lg-2">
               <div id="logo"><a href="index.php"><img src="images/logo.png" alt="logo" class="logo-size"></a></div>
             </div>
             <!-- Search -->
@@ -69,13 +69,13 @@ unset($_SESSION['qty_array']);
               </div>
             </div>
 
-            <div class="col-lg-8 col-10 order-lg-2 order-2 text-lg-left text-center">
+            <div class="order-2 text-lg-left text-center">
               <div class="header_search">
-                <div class="header_search_content">
+                <div class="header_search_content"style="width: 600px">
                   <div class="header_search_form_container">
-                    <form action="#" class="header_search_form clearfix w-100">
-                      <input type="search" required="required" class="header_search_input" placeholder="Cauta produse...">
-                      <button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
+                    <form action="#" class="h-100 w-100">
+                      <input type="search" required="required" class="header_search_input" style="width: 75%" placeholder="Cauta produse...">
+                      <button type="submit" class="header_search_button trans_300" style="width: 25%" value="Submit"><img src="images/search.png" alt=""></button>
                     </form>
                   </div>
                 </div>
@@ -85,10 +85,10 @@ unset($_SESSION['qty_array']);
             <?php
             if (isset($_SESSION["username"])) {
             ?>
-              <div class="col-lg-1 col-5 order-lg-3 order-1 text-lg-left text-right">
+              <div class="order-lg-3  text-lg-left text-right">
                 <div class="account_cart d-flex flex-row align-items-center justify-content-end">
                   <div class="account d-flex flex-row align-items-center justify-content-end">
-                    <div class="account_content"><a class="dropdown-toggle" href="#" id="settingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="" alt=""></a>
+                    <div class="account_content"><a class="dropdown-toggle" href="#" id="settingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./images/account.png" alt=""></a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settingsDropdown">
                         <span class="d-none">
                           <center><?php echo ($_SESSION['username']) ?>!</center>
@@ -101,7 +101,7 @@ unset($_SESSION['qty_array']);
                   <div class="col-lg-2 col-9 order-lg-3 order-3 text-lg-left text-right">
                     <div class="account_cart d-flex flex-row align-items-center justify-content-end">
                       <div class="account d-flex flex-row align-items-center justify-content-end">
-                        <div class="account_content"> <a class="dropdown-toggle" href="#" id="settingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="" alt=""></a>
+                        <div class="account_content"> <a class="dropdown-toggle" href="#" id="settingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./images/account.png" alt=""></a>
                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settingsDropdown"><a class="dropdown-item" href="login.php">Conectare</a><a class="dropdown-item" href="register.php">Inregistrare</a></div>
                         </div>
                       </div>
@@ -109,11 +109,11 @@ unset($_SESSION['qty_array']);
 
                     <!-- Cart -->
                     <div class="cart">
-                      <div class="cart_container d-flex flex-row align-items-center justify-content-end"> <a href="cart.php">
-                          <div class="cart_icon"> <img src="" alt="">
+                      <div class="cart_container d-flex flex-row align-items-center justify-content-end"><a href="cart.php">
+                          <div class="cart_icon"><img src="./images/cart.png" alt="">
                             <div class="cart_count"><span><?php echo count($_SESSION['cart']); ?></span></div>
                           </div>
-                        </a> </div>
+                        </a></div>
                     </div>
                     </div>
                   </div>
@@ -165,7 +165,7 @@ unset($_SESSION['qty_array']);
                 <!-- Slider -->
                 <div class="owl-carousel owl-theme deals_slider">
                   <?php
-                  $query = "SELECT * from product WHERE category_name='Smartphone' LIMIT 4";
+                  $query = "SELECT * from product WHERE category_name='Mister' LIMIT 1";
                   $result = mysqli_query($conn, $query);
                   while ($row = mysqli_fetch_assoc($result)) {
                   ?>
@@ -173,16 +173,11 @@ unset($_SESSION['qty_array']);
 
                     <a href="product.php?id=<?php echo $row['id']; ?>">
                       <div class="owl-item deals_item">
-                        <div class="deals_image d-none"><img src="images/item/<?php echo $row['image']; ?>" alt=""></div>
-
-                        <div class="deals_image"><img src="images/mircea.jpg" alt=""></div>
+                        <div class="deals_image "><img src="images/item/<?php echo $row['image']; ?>" alt=""></div>
                         <div class="deals_content">
                           <div class="deals_info_line d-flex flex-row justify-content-start">
-                            <div class="deals_item_name d-none"><?php echo $row['name']; ?></div>
-                            <div class="deals_item_price ml-auto d-none">€<?php echo $row['price'] - 100; ?></div>
-
-                            <div class="deals_item_name">La Tiganci Mircea Eliade</div>
-                            <div class="deals_item_price ml-auto">25lei</div>
+                            <div class="deals_item_name "><?php echo $row['name']; ?></div>
+                            <div class="deals_item_price ml-auto ">RON<?php echo $row['price']; ?></div>
                           </div>
                           <div class="available d-none">
                             <div class="available_line d-flex flex-row justify-content-start">
@@ -219,7 +214,7 @@ unset($_SESSION['qty_array']);
                   <?php } ?>
                 </div>
               </div>
-              <div class="deals_slider_nav_container d-none">
+              <div class="deals_slider_nav_container">
                 <div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i></div>
                 <div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i></div>
               </div>
@@ -231,8 +226,9 @@ unset($_SESSION['qty_array']);
                 <div class="tabs">
                   <ul class="clearfix">
                     <li class="active">Mister</li>
-                    <li>Romanta</li>
                     <li>Istorie</li>
+                    <li>Psihologie</li>
+                    <li>Drama</li>
                     <li>Amestec</li>
                   </ul>
                   <div class="tabs_line"><span></span></div>
@@ -243,14 +239,14 @@ unset($_SESSION['qty_array']);
                 <div class="product_panel panel active">
                   <div class="featured_slider slider">
                     <?php
-                    $query = "SELECT * from product WHERE category_name='Smartphone'";
+                    $query = "SELECT * from product WHERE category_name='Mister'";
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                       <!-- Item -->
-                      <div class="featured_slider_item d-none">
+                      <div class="featured_slider_item">
                         <div class="border_active"></div>
-                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center d-none">
+                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                           <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/item/<?php echo $row['image']; ?>" alt=""></div>
                           <div class="product_content">
                             <div class="product_price discount">€<?php echo $row['price']; ?></div>
@@ -262,24 +258,6 @@ unset($_SESSION['qty_array']);
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div class="featured_slider_item">
-                        <div class="border_active"></div>
-                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                          <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/carte.png" alt=""></div>
-                          <div class="product_content">
-                            <div class="product_price discount">20Lei</div>
-                            <div class="product_name">
-                              <div>Carte-1</a></div>
-                            </div>
-                            <div class="product_extras">
-                              <button class="product_cart_button">Descopera</button></a>
-                            </div>
-                          </div>
-                        </div>
-
-                      
                       </div>
                     <?php } ?>
                   </div>
@@ -290,14 +268,14 @@ unset($_SESSION['qty_array']);
                 <div class="product_panel panel">
                   <div class="featured_slider slider">
                     <?php
-                    $query = "SELECT * from product WHERE category_name='Componente PC'";
+                    $query = "SELECT * from product WHERE category_name='Istorie'";
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                       <!-- Item -->
-                      <div class="featured_slider_item  d-none">
-                        <div class="border_active  d-none"></div>
-                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center d-none">
+                      <div class="featured_slider_item">
+                        <div class="border_active"></div>
+                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                           <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/item/<?php echo $row['image']; ?>" alt=""></div>
                           <div class="product_content">
                             <div class="product_price discount">€<?php echo $row['price']; ?></div>
@@ -305,31 +283,9 @@ unset($_SESSION['qty_array']);
                               <div><a href="product.php"><?php echo $row['name']; ?></a></div>
                             </div>
                             <div class="product_extras">
-                              <div class="product_color"> </div>
                               <a href="product.php?id=<?php echo $row['id']; ?>"><button class="product_cart_button">Descopera</button></a>
                             </div>
                           </div>
-                          <ul class="product_marks">
-                          </ul>
-                        </div>
-                        </div>
-                        <div class="featured_slider_item">
-
-                        <div class="border_active"></div>
-                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                          <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/rom.jpg" alt=""></div>
-                          <div class="product_content">
-                            <div class="product_price discount">30Lei</div>
-                            <div class="product_name">
-                              <div><a href="product.php">Carte-2</a></div>
-                            </div>
-                            <div class="product_extras">
-                              <div class="product_color"> </div>
-                              <a button class="product_cart_button">Descopera</button></a>
-                            </div>
-                          </div>
-                          <ul class="product_marks">
-                          </ul>
                         </div>
                       </div>
                     <?php } ?>
@@ -338,19 +294,17 @@ unset($_SESSION['qty_array']);
                 </div>
 
                 <!-- Panou 3 -->
-
                 <div class="product_panel panel">
                   <div class="featured_slider slider">
-
                     <?php
-                    $query = "SELECT * from product WHERE category_name='Periferice'";
+                    $query = "SELECT * from product WHERE category_name='Psihologie'";
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                       <!-- Item -->
-                      <div class="featured_slider_item d-none">
+                      <div class="featured_slider_item">
                         <div class="border_active"></div>
-                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center ">
                           <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/item/<?php echo $row['image']; ?>" alt=""></div>
                           <div class="product_content">
                             <div class="product_price discount">€<?php echo $row['price']; ?></div>
@@ -358,27 +312,7 @@ unset($_SESSION['qty_array']);
                               <div><a href="product.php"><?php echo $row['name']; ?></a></div>
                             </div>
                             <div class="product_extras">
-                              <div class="product_color"> </div>
                               <a href="product.php?id=<?php echo $row['id']; ?>"><button class="product_cart_button">Descopera</button></a>
-                            </div>
-                          </div>
-                          <ul class="product_marks">
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div class="featured_slider_item">
-                        <div class="border_active"></div>
-                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                          <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/ist.jpg" alt=""></div>
-                          <div class="product_content">
-                            <div class="product_price discount">30Lei</div>
-                            <div class="product_name">
-                              <div><a href="product.php">Carte-3</a></div>
-                            </div>
-                            <div class="product_extras">
-                              <div class="product_color"> </div>
-                              <a ><button class="product_cart_button">Descopera</button></a>
                             </div>
                           </div>
                         </div>
@@ -387,18 +321,19 @@ unset($_SESSION['qty_array']);
                   </div>
                   <div class="featured_slider_dots_cover"></div>
                 </div>
+
+                
                 <!-- Pannello 4 -->
 
                 <div class="product_panel panel">
                   <div class="featured_slider slider">
-
                     <?php
-                    $query = "SELECT * from product WHERE category_name='Networking'";
+                    $query = "SELECT * from product WHERE category_name='Drama'";
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                       <!-- Item -->
-                      <div class="featured_slider_item d-none">
+                      <div class="featured_slider_item">
                         <div class="border_active"></div>
                         <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                           <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/item/<?php echo $row['image']; ?>" alt=""></div>
@@ -408,38 +343,46 @@ unset($_SESSION['qty_array']);
                               <div><a href="product.php"><?php echo $row['name']; ?></a></div>
                             </div>
                             <div class="product_extras">
-                              <div class="product_color"> </div>
                               <a href="product.php?id=<?php echo $row['id']; ?>"><button class="product_cart_button">Descopera</button></a>
                             </div>
                           </div>
-                          <ul class="product_marks">
-                          </ul>
-                        </div>
-                      </div>
-
-
-                      <div class="featured_slider_item">
-                        <div class="border_active"></div>
-                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                          <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/div.jpg" alt=""></div>
-                          <div class="product_content">
-                            <div class="product_price discount">10Lei</div>
-                            <div class="product_name">
-                              <div>Carte-4</div>
-                            </div>
-                            <div class="product_extras">
-                              <div class="product_color"> </div>
-                            <button class="product_cart_button">Descopera</button>
-                            </div>
-                          </div>
-                          <ul class="product_marks">
-                          </ul>
                         </div>
                       </div>
                     <?php } ?>
                   </div>
                   <div class="featured_slider_dots_cover"></div>
                 </div>
+
+                <div class="product_panel panel">
+                  <div class="featured_slider slider">
+                    <?php
+                    $query = "SELECT * from product WHERE category_name='Amestec'";
+                    $result = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                      <!-- Item -->
+                      <div class="featured_slider_item">
+                        <div class="border_active"></div>
+                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center ">
+                          <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/item/<?php echo $row['image']; ?>" alt=""></div>
+                          <div class="product_content">
+                            <div class="product_price discount">€<?php echo $row['price']; ?></div>
+                            <div class="product_name">
+                              <div><a href="product.php"><?php echo $row['name']; ?></a></div>
+                            </div>
+                            <div class="product_extras">
+                              <a href="product.php?id=<?php echo $row['id']; ?>"><button class="product_cart_button">Descopera</button></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <?php } ?>
+                  </div>
+                  <div class="featured_slider_dots_cover"></div>
+                </div>
+
+
+
               </div>
             </div>
           </div>
@@ -449,8 +392,8 @@ unset($_SESSION['qty_array']);
 
     <!-- Categorie Popolari -->
 
-    <div class="popular_categories mt-5">
-      <div class="container">
+    <div class="popular_categories mt-5 d-none">
+      <div class="container d-none">
         <div class="row">
           <div class="col-lg-3">
             <div class="popular_categories_content">
@@ -462,7 +405,7 @@ unset($_SESSION['qty_array']);
 
           <div class="col-lg-9">
             <div class="popular_categories_slider_container">
-              <div class="owl-carousel owl-theme popular_categories_slider d-none">
+              <div class="owl-carousel owl-theme popular_categories_slider">
                 <?php
                 $query = "SELECT * from category LIMIT 5";
                 $result = mysqli_query($conn, $query);
@@ -473,22 +416,6 @@ unset($_SESSION['qty_array']);
                     <div class="popular_category d-flex flex-column align-items-center justify-content-center">
                       <div class="popular_category_image"><img src="images/category/<?php echo $row['image']; ?>" alt=""></div>
                       <div class="popular_category_text"><?php echo $row['name']; ?></div>
-                    </div>
-                  </div>
-                <?php } ?>
-              </div>
-
-              <div class="owl-carousel owl-theme popular_categories_slider">
-                <?php
-                $query = "SELECT * from category LIMIT 5";
-                $result = mysqli_query($conn, $query);
-                while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                  <!-- Item -->
-                  <div class="owl-item">
-                    <div class="popular_category d-flex flex-column align-items-center justify-content-center">
-                      <div class="popular_category_image"> <img src="images/ist.jpg"></div>
-                      <div class="popular_category_text">Istoie</div>
                     </div>
                   </div>
                 <?php } ?>
@@ -586,7 +513,6 @@ unset($_SESSION['qty_array']);
     <!-- Footer -->
     <footer class="footer">
       <div class="container d-none">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2341.223672009748!2d21.229903377672276!3d45.74713930346177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47455d84610655bf%3A0xfd169ff24d29f192!2sUniversitatea%20de%20Vest%20din%20Timi%C8%99oara!5e0!3m2!1sro!2sro!4v1670189221372!5m2!1sro!2sro" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         <div class="row">
           <div class="col-lg-3 footer_col">
             <div class="footer_column">

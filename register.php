@@ -2,11 +2,11 @@
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
-<title>Vittorio :: Register</title>
+<title>BookLover -- Register</title>
 <link rel="icon" type="image/png" href="images/favicon.png">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Vittorio Shop Project">
+<meta name="description" content="BookLover Shop Project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="styles/register.css">
