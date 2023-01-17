@@ -2,7 +2,7 @@
 $dbHost = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
-$dbName = "vstack";
+$dbName = "booklover";
 
 $conn = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
 if (!$conn) {

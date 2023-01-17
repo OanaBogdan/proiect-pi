@@ -639,7 +639,7 @@ $(document).ready(function()
 		})
 		.slick(
 		{
-			rows:2,
+			rows:3,
 			slidesToShow:5,
 			slidesToScroll:5,
 			infinite:false,

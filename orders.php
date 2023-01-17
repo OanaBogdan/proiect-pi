@@ -1,40 +1,32 @@
 <?php
 include 'config/conn.php';
-require "./config//phpmailer//src//PHPMailer.php";
-require "./config//phpmailer//src//SMTP.php";
-require "./config//phpmailer//src//Exception.php";
-
-
-
 session_start();
-$in = implode(',', $_SESSION['cart']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
-  <title>BookLover -- Checkout</title>
+  <title>BookLover -- Orders</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+  <meta name="description" content="Vittorio Shop Project">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
   <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
   <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
   <link rel="stylesheet" type="text/css" href="plugins/slick-1.8.0/slick.css">
   <script src="https://kit.fontawesome.com/b378e79b5c.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-  <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+  <link rel="stylesheet" type="text/css" href="styles/main_responsive.css">
 </head>
 
 <body>
   <div class="super_container">
 
     <!-- Header -->
-
     <header class="header">
       <!-- Header Main -->
       <div class="header_main">
@@ -132,120 +124,60 @@ $in = implode(',', $_SESSION['cart']);
               </div>
           </div>
     </header>
-    <div class="cart_section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-10 offset-lg-1">
-            <div class="cart_container">
-              <center>
-                <div class="cart_title">Checkout</div>
-              </center>
+    <div class="container mt-5 ">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="mb-3">Comenzile mele</h2>
+          <!-- Table that displays orders from orders table database-->
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Comanda</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>Valoare Comanda</th>
+                <th>Data</th>
 
-
-
+              </tr>
+            </thead>
+            <tbody>
               <?php
-              if (empty($_SESSION['cart'])) { ?>
-                <!-- Show message -->
-                <div class="order_total">
-                  <div class="order_total_content text-center">
-                    <div class="order_total_title">Nu există produse în coșul dvs.!</div>
-                  </div>
-                </div>
-
-
-                <?php } else {
-                if (isset($_SESSION["username"])) {
-                  $query = "SELECT * from product WHERE id IN($in)";
-                  $result = mysqli_query($conn, $query);
-                  $count = mysqli_num_rows($result);
-                ?>
-
-                  <div class="order_total">
-                    <div class="order_total_content text-center">
-                      <div class="order_total_title">Comanda dvs. in valoare de RON
-                        <?php echo $_SESSION['total'] ?>
-                        a fost plasată cu succes!
-                        Va mai asteptam pe Booklover </div>
-                    </div>
-                  </div>
-
-
-                  <?php
-                  $mail = new PHPMailer\PHPMailer\PHPMailer;
-                  $mail->IsSMTP();
-                  $mail->Mailer = "smtp";
-                  $mail->SMTPAuth = TRUE;
-                  $mail->SMTPSecure = "tls";
-                  $mail->Port = 587;
-                  $mail->Host = "smtp.gmail.com";
-                  $mail->Username = "oana.bogdan66@gmail.com";
-                  $mail->Password = "lmrfkyseniuhhwlz";
-                  $mail->IsHTML(true);
-                  $mail->AddAddress($_SESSION['email'], $_SESSION['username']);
-                  $mail->SetFrom($mail->Username, "BookLover");
-                  $mail->Subject = "Comanda dvs. a fost plasata cu succes!";
-                  $content = "<b>Comanda dvs. care conține $count articole pentru un total de RON $_SESSION[total] a fost plasată cu succes! Va mai asteptam la BookLover!</b>";
-                  $mail->MsgHTML($content);
-                  if (!$mail->Send()) {
-                    echo "Error while sending Email.";
-                    var_dump($mail);
-                  } else {
-                    $total = $_SESSION['total'];
-                    $user_id = $_SESSION['id'];
-
-                    //insert into database the order
-                    $query = "INSERT INTO orders (status,total, user_id) VALUES ('Finalizata', '$total', '$user_id')";
-                    $result = mysqli_query($conn, $query);
-                    $order_id = mysqli_insert_id($conn);
-                  }
-                  ?>
-                <?php
-                  $_SESSION['cart'] = array();
-                } else { ?>
-                  <div class="order_total">
-                    <div class="order_total_content text-center">
-                      <div class="order_total_title"> Va rugam sa va logati pentru a finaliza comanda! </div>
-                    </div>
-                  </div>
-              <?php }
-              }
+              $sql = "SELECT * FROM orders WHERE user_id = " . $_SESSION['id'];
+              $result = mysqli_query($conn, $sql);
+              while ($row = mysqli_fetch_assoc($result)) {
               ?>
-            </div>
-          </div>
+                <tr>
+                  <td><?php echo $row['id'] ?></td>
+                  <td><?php echo $_SESSION['username'] ?></td>
+                  <td><?php echo $row['status'] ?></td>
+                  <td><?php echo $row['total'] ?></td>
+                  <td><?php echo $row['created_at'] ?></td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+
+
         </div>
       </div>
     </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Footer -->
     <footer class="footer">
-
+      <div class="container d-none">
+        <div class="row">
+          <div class="col-lg-3 footer_col">
+            <div class="footer_column">
+              <div class="justify-content-center"><a href="about.php">About us</a>
+                <p>Bulevardul Vasile Pârvan 4, Timișoara 300223</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
+
     <!-- Copyright -->
     <div class="copyright">
       <div class="container">
@@ -275,6 +207,6 @@ $in = implode(',', $_SESSION['cart']);
 <script src="plugins/slick-1.8.0/slick.js"></script>
 <script src="plugins/easing/easing.js"></script>
 <script src="js/custom.js"></script>
-<script src="./js/search.js"></script>
+<script src="js/search.js"></script>
 
 </html>

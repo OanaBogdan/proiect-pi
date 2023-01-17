@@ -1,33 +1,27 @@
 <?php
 include 'config/conn.php';
-require "./config//phpmailer//src//PHPMailer.php";
-require "./config//phpmailer//src//SMTP.php";
-require "./config//phpmailer//src//Exception.php";
-
-
-
 session_start();
-$in = implode(',', $_SESSION['cart']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
-  <title>BookLover -- Checkout</title>
+  <title>BookLover -- Profile</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+  <meta name="description" content="Vittorio Shop Project">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
   <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+  <script src="https://kit.fontawesome.com/b378e79b5c.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
   <link rel="stylesheet" type="text/css" href="plugins/slick-1.8.0/slick.css">
-  <script src="https://kit.fontawesome.com/b378e79b5c.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-  <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+  <link rel="stylesheet" type="text/css" href="styles/main_responsive.css">
 </head>
 
 <body>
@@ -73,7 +67,6 @@ $in = implode(',', $_SESSION['cart']);
                       <button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
                     </form>
                     <div class="search_results"></div>
-
                   </div>
                 </div>
               </div>
@@ -99,7 +92,7 @@ $in = implode(',', $_SESSION['cart']);
                     </div>
                   </div>
                 <?php } else { ?>
-                  <div class="order-lg-3 text-lg-left text-right">
+                  <div class="col-lg-2 col-9 order-lg-3 order-3 text-lg-left text-right">
                     <div class="account_cart d-flex flex-row align-items-center justify-content-end">
                       <div class="account d-flex flex-row align-items-center justify-content-end">
                         <div class="account_content"> <a class="dropdown-toggle" href="#" id="settingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-user fa-2xl"></i></a>
@@ -119,97 +112,72 @@ $in = implode(',', $_SESSION['cart']);
                     </div>
 
                     <!-- Admin -->
-                    <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1) { ?>
+                    <?php if ($_SESSION['user_type'] == 1) { ?>
                       <div class="account">
                         <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                           <a href="admin.php"><i class="fa-solid fa-lock fa-2xl"></i></a>
                         </div>
                       </div>
                     <?php } ?>
+
+
+
                     </div>
                   </div>
                 </div>
               </div>
           </div>
     </header>
-    <div class="cart_section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-10 offset-lg-1">
-            <div class="cart_container">
-              <center>
-                <div class="cart_title">Checkout</div>
-              </center>
-
-
-
-              <?php
-              if (empty($_SESSION['cart'])) { ?>
-                <!-- Show message -->
-                <div class="order_total">
-                  <div class="order_total_content text-center">
-                    <div class="order_total_title">Nu există produse în coșul dvs.!</div>
-                  </div>
+    <!-- Cart -->
+    <!-- Display username, name, surname, email from database with php -->
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3>Profil utilizator</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-9">
+                  <table class="table table-hover">
+                    <?php
+                    $sql = "SELECT * FROM users WHERE username = '" . $_SESSION['username'] . "'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    ?>
+                    <tr>
+                      <td>Nume</td>
+                      <td>
+                        <?php echo $row['name'] ?>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Prenume</td>
+                      <td>
+                        <?php echo $row['surname'] ?>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Nume de utilizator</td>
+                      <td><?php echo $row['username'] ?></td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td>
+                        <?php echo $row['email'] ?>
+                      </td>
+                    </tr>
+                    <!-- Created time-->
+                    <tr>
+                      <td>Cont creat la</td>
+                      <td>
+                        <?php echo $row['created'] ?>
+                      </td>
+                    </tr>
+                  </table>
                 </div>
-
-
-                <?php } else {
-                if (isset($_SESSION["username"])) {
-                  $query = "SELECT * from product WHERE id IN($in)";
-                  $result = mysqli_query($conn, $query);
-                  $count = mysqli_num_rows($result);
-                ?>
-
-                  <div class="order_total">
-                    <div class="order_total_content text-center">
-                      <div class="order_total_title">Comanda dvs. in valoare de RON
-                        <?php echo $_SESSION['total'] ?>
-                        a fost plasată cu succes!
-                        Va mai asteptam pe Booklover </div>
-                    </div>
-                  </div>
-
-
-                  <?php
-                  $mail = new PHPMailer\PHPMailer\PHPMailer;
-                  $mail->IsSMTP();
-                  $mail->Mailer = "smtp";
-                  $mail->SMTPAuth = TRUE;
-                  $mail->SMTPSecure = "tls";
-                  $mail->Port = 587;
-                  $mail->Host = "smtp.gmail.com";
-                  $mail->Username = "oana.bogdan66@gmail.com";
-                  $mail->Password = "lmrfkyseniuhhwlz";
-                  $mail->IsHTML(true);
-                  $mail->AddAddress($_SESSION['email'], $_SESSION['username']);
-                  $mail->SetFrom($mail->Username, "BookLover");
-                  $mail->Subject = "Comanda dvs. a fost plasata cu succes!";
-                  $content = "<b>Comanda dvs. care conține $count articole pentru un total de RON $_SESSION[total] a fost plasată cu succes! Va mai asteptam la BookLover!</b>";
-                  $mail->MsgHTML($content);
-                  if (!$mail->Send()) {
-                    echo "Error while sending Email.";
-                    var_dump($mail);
-                  } else {
-                    $total = $_SESSION['total'];
-                    $user_id = $_SESSION['id'];
-
-                    //insert into database the order
-                    $query = "INSERT INTO orders (status,total, user_id) VALUES ('Finalizata', '$total', '$user_id')";
-                    $result = mysqli_query($conn, $query);
-                    $order_id = mysqli_insert_id($conn);
-                  }
-                  ?>
-                <?php
-                  $_SESSION['cart'] = array();
-                } else { ?>
-                  <div class="order_total">
-                    <div class="order_total_content text-center">
-                      <div class="order_total_title"> Va rugam sa va logati pentru a finaliza comanda! </div>
-                    </div>
-                  </div>
-              <?php }
-              }
-              ?>
+              </div>
             </div>
           </div>
         </div>
@@ -218,34 +186,21 @@ $in = implode(',', $_SESSION['cart']);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Footer -->
     <footer class="footer">
-
+      <div class="container d-none">
+        <div class="row">
+          <div class="col-lg-3 footer_col">
+            <div class="footer_column">
+              <div class="justify-content-center"><a href="about.php">About us</a>
+                <p>Bulevardul Vasile Pârvan 4, Timișoara 300223</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
+
     <!-- Copyright -->
     <div class="copyright">
       <div class="container">
@@ -275,6 +230,6 @@ $in = implode(',', $_SESSION['cart']);
 <script src="plugins/slick-1.8.0/slick.js"></script>
 <script src="plugins/easing/easing.js"></script>
 <script src="js/custom.js"></script>
-<script src="./js/search.js"></script>
+<script src="js/search.js"></script>
 
 </html>
